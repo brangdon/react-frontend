@@ -44,6 +44,7 @@ ReactDOM.render((
     document.getElementById('app')
 );
 
+
 ReactDOM.render(<App/>, document.getElementById("acc-menu"));
 
 ReactDOM.render(<InfiniteList/>, document.getElementById("posts"));
