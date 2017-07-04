@@ -9,6 +9,8 @@ import * as firebase from 'firebase'
 
 
 import App from './components/App.jsx';
+import Login from './components/Login.jsx';
+import Register from './components/Register.jsx';
 import About from './components/About.jsx';
 import Home from './components/Home.jsx';
 import Contact from './components/Contact.jsx';
@@ -18,21 +20,13 @@ import InfiniteList from './components/InfiniteList.jsx';
 
 
 
-var config = {
-    apiKey: "AIzaSyD6LMDgDlZd7oYp5HC5uVflZFxDpfdgndU",
-    authDomain: "gallery-viewer-b9c36.firebaseapp.com",
-    databaseURL: "https://gallery-viewer-b9c36.firebaseio.com",
-    projectId: "gallery-viewer-b9c36",
-    storageBucket: "",
-    messagingSenderId: "503073234075"
-};
-firebase.initializeApp(config);
-
 ReactDOM.render((
         <BrowserRouter>
             <div>
                 <Route exact path="/" />
                 <Route path="/home" component={Home}/>
+                <Route path="/login" component={Login}/>
+                <Route path="/register" component={Register}/>
                 <Route path="/about" component={About}/>
                 <Route path="/contact" component={Contact}/>
                 <Route path="/comments" component={Comments}/>

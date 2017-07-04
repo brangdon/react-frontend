@@ -23,22 +23,9 @@ var ListItem = createReactClass({
 
 
     componentDidMount: function () {
-        // const rootRef = firebase.database().ref().child('posts');
-        // const speedRef = rootRef.child(this.props.num);
-
-        // if (speedRef != null) {
-        //     speedRef.on('value', snap => {
         this.setState({
             text: 'ala ma kota'
         });
-        //     });
-        // }else{
-        //     speedRef.on('value', snap => {
-        //         this.setState({
-        //             text: 'ala ma kota'
-        //         });
-        //     });
-        // }
 
     },
 

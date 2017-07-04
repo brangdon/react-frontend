@@ -1,5 +1,5 @@
 import React from 'react';
-import * as firebase from 'firebase'
+// import * as firebase from 'firebase'
 import InfiniteScroll from 'redux-infinite-scroll';
 
 
@@ -15,14 +15,14 @@ class Gallery extends React.Component {
 
 
     componentDidMount() {
-        const rootRef = firebase.database().ref().child('posts');
-        const speedRef = rootRef.child('1');
-
-        speedRef.on('value', snap => {
-            this.setState({
-                speed: snap.val()
-            });
-        });
+        // const rootRef = firebase.database().ref().child('posts');
+        // const speedRef = rootRef.child('1');
+        //
+        // speedRef.on('value', snap => {
+        //     this.setState({
+        //         speed: snap.val()
+        //     });
+        // });
     }
 
 

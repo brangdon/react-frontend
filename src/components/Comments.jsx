@@ -1,12 +1,13 @@
 import React from 'react';
 var createReactClass = require('create-react-class');
+var axios = require('axios');
 
 class CommentRow extends React.Component {
     render() {
         return (
             <tr>
-                <td>{this.props.comment.info}</td>
-                <td>{this.props.comment.userID}</td>
+                <td>{this.props.comment.CommentID}</td>
+                <td>{this.props.comment.Info}</td>
             </tr>
         );
     }
@@ -16,20 +17,21 @@ class CommentTable extends React.Component {
     render() {
         var rows = [];
         var lastCategory = null;
-        console.log(this.props.inStockOnly)
+        // console.log(this.props.inStockOnly)
         this.props.comments.forEach((comment) => {
-            if (comment.info.indexOf(this.props.filterText) === -1 ) {
-                return;
-            }
-            rows.push(<CommentRow comment={comment} key={comment.info} />);
-            lastCategory = comment.category;
+            // if (comment.CommentID == -1) {
+            //     return;
+            // }
+// console.log(comment)
+            rows.push(<CommentRow comment={comment} key={comment.key}/>);
+            // lastCategory = comment.category;
         });
         return (
             <table>
                 <thead>
                 <tr>
-                    <th>Info</th>
-                    <th>Price</th>
+                    <th>CommentID:</th>
+                    <th>Comment:</th>
                 </tr>
                 </thead>
                 <tbody>{rows}</tbody>
@@ -113,61 +115,92 @@ class FilterableCommentTable extends React.Component {
 
 
 var PRODUCTS = [
-    {userID: '1', info: 'adshah', comid: 3},
-    {userID: '2', info: 'ad'},
-    {userID: '3', info: 'adjhadjg'},
-    {userID: '4', info: 'dh rtjuw'},
-    {userID: '5', info: 'sdrky5'},
-    {userID: '6', info: 'dsngd 7'}
+    {Info: 'agsg', CommentID: 1},
+    {Info: 'bsgs', CommentID: 2},
+    {Info: 'csdf', CommentID: 3},
+    {Info: 'sdfgsg', CommentID: 4},
+    {Info: 'sgsgs', CommentID: 5},
+    {Info: 'gsgsdg', CommentID: 6}
 ];
 
 
-
-var Comments= createReactClass( {
-
-    // state = {comments: [], images: []}
+var Comments = createReactClass({
 
     getInitialState: function () {
-        return {comments: []};
+        return {
+            comments: [],
+            value: ''
+        };
     },
 
-    componentDidMount:function() {
-        // fetch('/comments')
-        //     .then(res => res.json())
-        //     .then(comments => this.setState({comments}));
+    componentDidMount: function () {
+
+        var _this = this;
+        this.serverRequest =
+            axios
+                .get("/comments")
+                .then(function (result) {
 
 
-        fetch('/comments').then(function (response) {
-            return response.json();
-        }).then(function (comments) {
-            console.log('comments2: ' + comments.length)
+                    // console.log((result.data[0]))
+                    // console.log({Info: 'agsg', CommentID: '1'})
+                    if (result) {
+                        _this.setState({
+                            comments: result.data
+                        });
+                    }
 
+                })
+    },
 
-            // this.setState({comments: myBlob}, function () {
-            //     console.log('callback');
-            // });
+    componentWillUnmount: function () {
+        this.serverRequest.abort();
+    },
 
+    handleChange: function (event) {
+        this.setState({value: event.target.value});
+    },
 
-            // console.log(this.state.comments)
+    handleSubmit: function (event) {
+        alert('A name was submitted: ' + this.state.value);
 
+        fetch('/comments', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                firstParam: 'yourValue',
+                secondParam: 'yourOtherValue',
+                state: this.state.value
+            })
+        }).then((response) => response.json())
 
-        }).catch(function(err) {
-            // Error :(
-        });
-
-
-
-
+        event.preventDefault();
     },
 
 
     render() {
+
+        var comments = [];
+        for (var i = 0; i < this.state.comments.length; i++) {
+            comments.push(<p className='indent' key={i}>{this.state.comments[i].Info}</p>);
+        }
+
         return (
             <div className="App">
                 <h2>Comments</h2>
-                <p>fff {this.state.comments}</p>
-                {/*<FilterableCommentTable comments={PRODUCTS} />*/}
-
+                <FilterableCommentTable comments={this.state.comments}/>
+                length: {this.state.comments.length}
+                {/*comments: {comments}*/}
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        Comment:
+                        <textarea value={this.state.value} onChange={this.handleChange}/>
+                    </label>
+                    <input type="submit" value="Submit"/>
+                </form>
             </div>
         );
     }
