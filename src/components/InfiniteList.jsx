@@ -1,8 +1,8 @@
 import React from 'react';
-// import * as firebase from 'firebase'
 
 var createReactClass = require('create-react-class');
 var Infinite = require('react-infinite');
+var axios = require('axios');
 
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
@@ -10,51 +10,18 @@ function getRandomArbitrary(min, max) {
 
 var ListItem = createReactClass({
 
-    // constructor: function(props) {
-    //     //noinspection JSAnnotator
-    //     this.state = {
-    //
-    //     };
-    // },
-
     getInitialState: function () {
         return {text: ''};
     },
 
-
     componentDidMount: function () {
-        // const rootRef = firebase.database().ref().child('posts');
-        // const speedRef = rootRef.child(this.props.num);
-
-        // if (speedRef != null) {
-        //     speedRef.on('value', snap => {
-        this.setState({
-            text: 'ala ma kota'
-        });
-        //     });
-        // }else{
-        //     speedRef.on('value', snap => {
-        //         this.setState({
-        //             text: 'ala ma kota'
-        //         });
-        //     });
-        // }
 
     },
 
-
     render: function () {
 
-        return this.props.num % 2 == 0
-            ? <div className="infinite-list-item1">
-                {this.state.text} {this.props.num} {this.props.key}
-                <img width={300} height={300} src={require('../images/' + this.props.num)}/>
-            </div>
-            : <div className="infinite-list-item2">
-                {this.state.text} {this.props.num} {this.props.key}
-                <img width={300} height={300} src={require('../images/' + this.props.num)}/>
-            </div>
-            ;
+        console.log('rendering itemList')
+        return <a href='http://www.onet.pl'><span><img  width={200} height={200} src={require('../images/'+ this.props.num)}/></span></a>
     }
 });
 
@@ -63,34 +30,47 @@ var InfiniteList = createReactClass({
 
         console.log('infinite list')
         return {
-            // elements: this.buildElements(0, 5),
             isInfiniteLoading: false,
-            images: this.fetchElements(0, 15)
+            images: this.fetchElement(0, 2)
         }
     },
 
-    fetchElements: function (start, end) {
-        var that = this;
-        console.log('fetching')
+    fetchElement: function (start, end) {
+
+        var _this = this;
+        console.log('fetching element')
         var elements = [];
+
         for (var i = start; i < end; i++) {
+            this.serverRequest =
+                axios
+                    .get("/images/" + i)
+                    .then(function (result) {
 
-            var name = ''
+                        if (result) {
+                            if (result.data.length > 0) {
+                                console.log(result.data[0])
+                                var n = result.data[0].ImageName
 
-            fetch('/images/' + i).then(function (response) {
-                return response.json();
-            }).then(function (myBlob) {
-                console.log('blobb: ' + myBlob[0].ImageName + ' key: ' + getRandomArbitrary(0,99999))
-                var n = myBlob[0].ImageName
-                elements.push(<ListItem key={getRandomArbitrary(0,99999)} num={n}/>)
-            }).catch(function(err) {
-                // Error :(
-            });
+                                _this.setState({
+                                    image: result.data,
+                                    images: _this.state.images.concat(<ListItem key={getRandomArbitrary(0, 99999)}
+                                                                                num={n}/>)
+                                });
 
+                                console.log('images len: ' + _this.state.images.length)
+                            }
+                        }
+                    })
         }
+
+        console.log('elements len: ' + elements.length)
         return elements;
     },
 
+    componentWillUnmount: function () {
+        this.serverRequest.abort();
+    },
 
     handleInfiniteLoad: function () {
         var that = this;
@@ -98,15 +78,20 @@ var InfiniteList = createReactClass({
             isInfiniteLoading: true
         });
         setTimeout(function () {
-            // var elemLength = that.state.elements.length,
-            //     newElements = that.buildElements(elemLength, elemLength + 2);
-            var imagesLength = that.state.images.length,
-                newImagesElements = that.fetchElements(imagesLength, imagesLength + 2);
-            that.setState({
-                isInfiniteLoading: false,
-                // elements: that.state.elements.concat(newElements),
-                images: that.state.images.concat(newImagesElements)
-            });
+            var imagesLength = that.state.images.length
+            if(imagesLength> 60){
+                that.setState({
+                    isInfiniteLoading: false
+                });
+            }else{
+                var newImagesElements = that.fetchElement(imagesLength, imagesLength + 2);
+                that.setState({
+                    isInfiniteLoading: false,
+                    // elements: that.state.elements.concat(newElements),
+                    images: that.state.images.concat(newImagesElements)
+                });
+            }
+
         }, 1500);
     },
 
@@ -118,7 +103,7 @@ var InfiniteList = createReactClass({
 
     render: function () {
         return <Infinite elementHeight={30}
-                         containerHeight={500}
+                         containerHeight={600}
                          infiniteLoadBeginEdgeOffset={11}
                          onInfiniteLoad={this.handleInfiniteLoad}
                          loadingSpinnerDelegate={this.elementInfiniteLoad()}
