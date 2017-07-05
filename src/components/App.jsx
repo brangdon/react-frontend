@@ -1,5 +1,5 @@
 import React from 'react';
-import * as firebase from 'firebase'
+// import * as firebase from 'firebase'
 //
 
 class Menu extends React.Component {
@@ -35,14 +35,14 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        const rootRef = firebase.database().ref().child('react');
-        const speedRef = rootRef.child('speed');
-
-        speedRef.on('value', snap => {
-            this.setState({
-                speed: snap.val()
-            });
-        });
+        // const rootRef = firebase.database().ref().child('react');
+        // const speedRef = rootRef.child('speed');
+        //
+        // speedRef.on('value', snap => {
+        //     this.setState({
+        //         speed: snap.val()
+        //     });
+        // });
     }
 
     render() {

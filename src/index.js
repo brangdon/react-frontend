@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 import {BrowserRouter, Route, Link} from 'react-router-dom'
 
-import * as firebase from 'firebase'
+// import * as firebase from 'firebase'
 
 
 import App from './components/App.jsx';

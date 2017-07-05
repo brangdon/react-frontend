@@ -1,5 +1,5 @@
 import React from 'react';
-import * as firebase from 'firebase'
+// import * as firebase from 'firebase'
 
 var createReactClass = require('create-react-class');
 var Infinite = require('react-infinite');
@@ -23,9 +23,22 @@ var ListItem = createReactClass({
 
 
     componentDidMount: function () {
+        // const rootRef = firebase.database().ref().child('posts');
+        // const speedRef = rootRef.child(this.props.num);
+
+        // if (speedRef != null) {
+        //     speedRef.on('value', snap => {
         this.setState({
             text: 'ala ma kota'
         });
+        //     });
+        // }else{
+        //     speedRef.on('value', snap => {
+        //         this.setState({
+        //             text: 'ala ma kota'
+        //         });
+        //     });
+        // }
 
     },
 
@@ -47,6 +60,8 @@ var ListItem = createReactClass({
 
 var InfiniteList = createReactClass({
     getInitialState: function () {
+
+        console.log('infinite list')
         return {
             // elements: this.buildElements(0, 5),
             isInfiniteLoading: false,

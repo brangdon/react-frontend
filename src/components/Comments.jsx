@@ -16,13 +16,15 @@ class CommentRow extends React.Component {
 class CommentTable extends React.Component {
     render() {
         var rows = [];
-        var lastCategory = null;
-        // console.log(this.props.inStockOnly)
+        // var lastCategory = null;
         this.props.comments.forEach((comment) => {
             // if (comment.CommentID == -1) {
             //     return;
             // }
-// console.log(comment)
+            if (comment.Info.indexOf(this.props.filterText) === -1 ) {
+                return;
+            }
+
             rows.push(<CommentRow comment={comment} key={comment.key}/>);
             // lastCategory = comment.category;
         });
@@ -49,6 +51,7 @@ class SearchBar extends React.Component {
 
     handleFilterTextInputChange(e) {
         this.props.onFilterTextInput(e.target.value);
+        console.log(e.target.value)
     }
 
     handleInStockInputChange(e) {
@@ -114,16 +117,6 @@ class FilterableCommentTable extends React.Component {
 }
 
 
-var PRODUCTS = [
-    {Info: 'agsg', CommentID: 1},
-    {Info: 'bsgs', CommentID: 2},
-    {Info: 'csdf', CommentID: 3},
-    {Info: 'sdfgsg', CommentID: 4},
-    {Info: 'sgsgs', CommentID: 5},
-    {Info: 'gsgsdg', CommentID: 6}
-];
-
-
 var Comments = createReactClass({
 
     getInitialState: function () {
@@ -141,9 +134,6 @@ var Comments = createReactClass({
                 .get("/comments")
                 .then(function (result) {
 
-
-                    // console.log((result.data[0]))
-                    // console.log({Info: 'agsg', CommentID: '1'})
                     if (result) {
                         _this.setState({
                             comments: result.data
@@ -171,9 +161,9 @@ var Comments = createReactClass({
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                firstParam: 'yourValue',
-                secondParam: 'yourOtherValue',
-                state: this.state.value
+                // firstParam: 'yourValue',
+                // secondParam: 'yourOtherValue',
+                comment: this.state.value
             })
         }).then((response) => response.json())
 

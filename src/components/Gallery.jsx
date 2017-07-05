@@ -7,6 +7,7 @@ import InfiniteScroll from 'redux-infinite-scroll';
 class Gallery extends React.Component {
 
     constructor() {
+        console.log('gallery')
         super();
         this.state = {
             speed: 100,
