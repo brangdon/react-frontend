@@ -1,15 +1,33 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: "Open Sans";
 }
 
+h2{
+    padding: 1.5em;
+    font-weight: bold;
+}
 #menu {
     color: red;
     font-size: 1.5em;
 
 }
 
+.annoucements-container h2{
+    font-size: 2em;
+}
+.annoucements p{
+    line-height: 2em;
+}
+.annoucement{
+    padding: 1.5em;
+}
+.annoucement h3{
+    font-size: 1.3em;
+    color: crimson;
+    padding: 0.5em;
+}
 #app {
     background-color: skyblue;
 }
@@ -47,6 +65,8 @@ footer {
 
 .comments p{
     padding: 0.5em;
+    font-size: 1.2em;
+    line-height: 1.5em;
 }
 
 .list ul li {
@@ -80,7 +100,7 @@ footer {
     color: #444;
     cursor: pointer;
     padding: 18px;
-    width: 100%;
+    /*width: 100%;*/
     text-align: left;
     border: none;
     outline: none;

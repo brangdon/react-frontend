@@ -6,7 +6,7 @@ var axios = require('axios')
 class CommentRow extends React.Component {
     render() {
         return (
-            <div>
+            <div className="annoucement">
                 <h3>{this.props.comment.Title}</h3>
                 <p>{this.props.comment.Info}</p>
             </div>
@@ -19,15 +19,15 @@ class CommentTable extends React.Component {
     render() {
         var rows = [];
         this.props.comments.forEach((comment) => {
-            if (comment.Info.indexOf(this.props.filterText) === -1 ) {
+            if (comment.Info.indexOf(this.props.filterText) === -1) {
                 return;
             }
 
             rows.push(<CommentRow comment={comment} key={comment.key}/>);
         });
         return (
-            <div>
-                <tbody>{rows}</tbody>
+            <div className="annoucements">
+                {rows}
             </div>
         );
     }
@@ -108,8 +108,35 @@ var Annoucements = createReactClass({
 
     getInitialState: function () {
         return {
-            annoucements: []
+            annoucements: [],
+            text: '',
+            title: ''
         };
+    },
+
+    handleChange: function (event) {
+        this.setState({text: event.target.value});
+    },
+
+    changeChangeTitle: function (event) {
+        this.setState({title: event.target.value});
+    },
+
+    handleSubmit: function (event) {
+
+        axios.post('/annoucements', {
+            text: this.state.text,
+            title: this.state.title
+        })
+            .then(function (response) {
+                console.log('annoucements response')
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        event.preventDefault();
     },
 
     componentDidMount: function () {
@@ -142,11 +169,19 @@ var Annoucements = createReactClass({
         this.serverRequest.abort();
     },
 
-
     render() {
         return (
-            <div>
-                <h2>Annoucements</h2>
+            <div className="annoucements-container">
+                <h2>Annoucements:</h2>
+                <h3>Add annoucement:</h3>
+                <form onSubmit={this.handleSubmit}>
+                    <label>Title:</label>
+                    <input type="text" value={this.state.title} onChange={this.changeChangeTitle}/>
+                    <label> Text:</label>
+                    <textarea value={this.state.text} onChange={this.handleChange}/>
+
+                    <input type="submit" value="Submit"/>
+                </form>
                 <FilterableCommentTable comments={this.state.annoucements}/>
             </div>
         )

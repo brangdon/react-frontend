@@ -71,7 +71,6 @@ class SearchBar extends React.Component {
     }
 }
 
-
 class FilterableCommentTable extends React.Component {
     constructor(props) {
         super(props);
