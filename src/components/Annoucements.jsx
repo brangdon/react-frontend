@@ -1,53 +1,34 @@
 import React from 'react';
-var axios = require('axios');
 var createReactClass = require('create-react-class');
+var axios = require('axios')
 
 
 class CommentRow extends React.Component {
     render() {
         return (
-            <tr>
-                <td>{this.props.comment.CommentID}</td>
-                <td>{this.props.comment.Info}</td>
-            </tr>
+            <div>
+                <h3>{this.props.comment.Title}</h3>
+                <p>{this.props.comment.Info}</p>
+            </div>
+
         );
     }
 }
 
 class CommentTable extends React.Component {
-
-
-    constructor(props) {
-        super(props);
-
-        console.log('props')
-        console.log(props)
-    }
-
     render() {
         var rows = [];
-        // var lastCategory = null;
         this.props.comments.forEach((comment) => {
-            // if (comment.CommentID == -1) {
-            //     return;
-            // }
-            if (comment.Info.indexOf(this.props.filterText) === -1) {
+            if (comment.Info.indexOf(this.props.filterText) === -1 ) {
                 return;
             }
 
             rows.push(<CommentRow comment={comment} key={comment.key}/>);
-            // lastCategory = comment.category;
         });
         return (
-            <table>
-                <thead>
-                <tr>
-                    <th>CommentID:</th>
-                    <th>Comment:</th>
-                </tr>
-                </thead>
+            <div>
                 <tbody>{rows}</tbody>
-            </table>
+            </div>
         );
     }
 }
@@ -112,12 +93,7 @@ class FilterableCommentTable extends React.Component {
 
         return (
             <div>
-                <SearchBar
-                    filterText={this.state.filterText}
-                    inStockOnly={this.state.inStockOnly}
-                    onFilterTextInput={this.handleFilterTextInput}
-                    onInStockInput={this.handleInStockInput}
-                />
+
                 <CommentTable
                     comments={this.props.comments}
                     filterText={this.state.filterText}
@@ -128,14 +104,11 @@ class FilterableCommentTable extends React.Component {
     }
 }
 
-
-var Image = createReactClass({
+var Annoucements = createReactClass({
 
     getInitialState: function () {
         return {
-            image: '',
-            name: '',
-            comments: []
+            annoucements: []
         };
     },
 
@@ -144,7 +117,7 @@ var Image = createReactClass({
         var _this = this;
         this.serverRequest =
             axios
-                .get("/images/" + this.props.match.params.id)
+                .get("/annoucements")
                 .then(function (result) {
 
                     if (result) {
@@ -152,52 +125,32 @@ var Image = createReactClass({
                         if (result.data.length > 0) {
 
                             _this.setState({
-                                image: result.data[0].ImageName,
+                                annoucements: result.data,
                             });
                         } else {
 
-                            console.log('no image')
+                            console.log('no annoucements')
                         }
                     }
 
                 })
 
 
-        this.serverRequest = axios
-            .get("/comments/" + this.props.match.params.id)
-            .then(function (result) {
-
-                if (result) {
-                    _this.setState({
-                        comments: result.data
-                    });
-                }
-
-            })
     },
 
     componentWillUnmount: function () {
         this.serverRequest.abort();
     },
 
-    render() {
-        console.log(this.state.image)
-        var name = '1.jpg'// this.state.image
-        var name2 = this.props.match.params.id + '.jpg'
 
-        // console.log('name state: ' + this.state.name)
-        console.log('comments:')
-        console.log(this.state.comments)
+    render() {
         return (
             <div>
-                <h2>Image comments</h2>
-                {/*<h2>{this.props.match.params.id}</h2>*/}
-                {/*<h2>{this.state.name}</h2>*/}
-                <FilterableCommentTable comments={this.state.comments}/>
-
+                <h2>Annoucements</h2>
+                <FilterableCommentTable comments={this.state.annoucements}/>
             </div>
         )
     }
 })
 
-export default Image;
+export default Annoucements;

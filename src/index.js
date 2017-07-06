@@ -11,7 +11,7 @@ import {BrowserRouter, Route, Link} from 'react-router-dom'
 import App from './components/App.jsx';
 import Login from './components/Login.jsx';
 import Register from './components/Register.jsx';
-import About from './components/About.jsx';
+import Annoucements from './components/Annoucements.jsx';
 import Home from './components/Home.jsx';
 import Contact from './components/Contact.jsx';
 import Comments from './components/Comments.jsx';
@@ -28,7 +28,7 @@ ReactDOM.render((
                 <Route path="/home" component={Home}/>
                 <Route path="/login" component={Login}/>
                 <Route path="/register" component={Register}/>
-                <Route path="/about" component={About}/>
+                <Route path="/Annoucements" component={Annoucements}/>
                 <Route path="/contact" component={Contact}/>
                 <Route path="/comments" component={Comments}/>
                 <Route path="/gallery" component={Gallery}/>
