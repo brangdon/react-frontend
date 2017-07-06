@@ -1,43 +1,56 @@
 import React from 'react';
-// import * as firebase from 'firebase'
-import InfiniteScroll from 'redux-infinite-scroll';
+var createReactClass = require('create-react-class')
+var axios = require('axios')
 
 
+var Gallery = createReactClass({
 
-class Gallery extends React.Component {
-
-    constructor() {
-        console.log('gallery')
-        super();
-        this.state = {
-            speed: 100,
+    getInitialState: function () {
+        return {
+            name: ''
         };
-    }
+    },
 
+    changeChangeName: function (event) {
+        this.setState({name: event.target.value});
+    },
 
-    componentDidMount() {
-        // const rootRef = firebase.database().ref().child('posts');
-        // const speedRef = rootRef.child('1');
-        //
-        // speedRef.on('value', snap => {
-        //     this.setState({
-        //         speed: snap.val()
-        //     });
-        // });
-    }
+    handleSubmit: function (event) {
 
+        axios.post('/images', {
+            name: this.state.name
+        })
+            .then(function (response) {
+                console.log('images response')
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        event.preventDefault();
+    },
 
     render() {
         return (
             <div>
-                <h1>Gallery...</h1>
+                <h2>Gallery</h2>
+
+                <form onSubmit={this.handleSubmit}>
+                    <label>Image name:</label>
+                    <input type="text" value={this.state.name} onChange={this.changeChangeName}/>
+
+                    <input type="submit" value="Submit"/>
+                </form>
+
+
                 <div id="posts">
 
                 </div>
             </div>
         )
     }
-}
+})
 
 
 export default Gallery;
