@@ -53,13 +53,18 @@ var Register = createReactClass({
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         Login:
-                        <input type="text" value={this.state.login} onChange={this.handleChangeLogin}/>
-                        Password:
-                        <input type="password" value={this.state.password} onChange={this.handleChangePassword}/>
-                        Repeat password:
-                        <input type="password" value={this.state.repeatPassword}
-                               onChange={this.handleChangeRepeatPassword}/>
                     </label>
+                    <input type="text" value={this.state.login} onChange={this.handleChangeLogin}/>
+                    <label>
+                        Password:
+                    </label>
+                    <input type="password" value={this.state.password} onChange={this.handleChangePassword}/>
+                    <label>
+                        Repeat password:
+                    </label>
+                    <input type="password" value={this.state.repeatPassword}
+                           onChange={this.handleChangeRepeatPassword}/>
+
                     <input type="submit" value="Submit"/>
                 </form>
             </div>

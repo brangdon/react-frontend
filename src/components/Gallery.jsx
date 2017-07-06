@@ -35,13 +35,14 @@ var Gallery = createReactClass({
         return (
             <div>
                 <h2>Gallery</h2>
+                <div className="adding-image">
+                    <form onSubmit={this.handleSubmit}>
+                        <label>Image name:</label>
+                        <input type="text" value={this.state.name} onChange={this.changeChangeName}/>
 
-                <form onSubmit={this.handleSubmit}>
-                    <label>Image name:</label>
-                    <input type="text" value={this.state.name} onChange={this.changeChangeName}/>
-
-                    <input type="submit" value="Submit"/>
-                </form>
+                        <input type="submit" value="Submit"/>
+                    </form>
+                </div>
 
 
                 <div id="posts">

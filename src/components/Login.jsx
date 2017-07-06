@@ -1,7 +1,7 @@
 import React from 'react';
 var createReactClass = require('create-react-class');
 var axios = require('axios')
-import { browserHistory } from 'react-router'
+import {browserHistory} from 'react-router'
 var Login = createReactClass({
 
     getInitialState: function () {
@@ -60,10 +60,13 @@ var Login = createReactClass({
                 <form onSubmit={this.handleSubmit.bind(this)}>
                     <label>
                         Login:
-                        <input type="text" value={this.state.login} onChange={this.handleChangeLogin}/>
-                        Password:
-                        <input type="password" value={this.state.password} onChange={this.handleChangePassword}/>
                     </label>
+                    <input type="text" value={this.state.login} onChange={this.handleChangeLogin}/>
+                    <label>
+                        Password:
+                    </label>
+                    <input type="password" value={this.state.password} onChange={this.handleChangePassword}/>
+
                     <input type="submit" value="Submit"/>
                 </form>
             </div>

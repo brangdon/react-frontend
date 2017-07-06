@@ -4,32 +4,49 @@ body {
     font-family: "Open Sans";
 }
 
-h2{
-    padding: 1.5em;
+h2 {
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
     font-weight: bold;
+    font-size: 1.5em;
 }
+
 #menu {
     color: red;
     font-size: 1.5em;
 
 }
 
-.annoucements-container h2{
+.annoucements-container h2 {
     font-size: 2em;
 }
-.annoucements p{
+
+.annoucements-container h3 {
+    font-size: 1.2em;
+    padding: 1em;
+}
+
+.annoucements p {
     line-height: 2em;
 }
-.annoucement{
+
+.annoucement {
     padding: 1.5em;
 }
-.annoucement h3{
+
+.annoucement h3 {
     font-size: 1.3em;
     color: crimson;
     padding: 0.5em;
 }
+
 #app {
     background-color: skyblue;
+    padding: 2%;
+}
+
+.adding-image {
+    padding: 2%;
 }
 
 #menu li a:visited {
@@ -40,7 +57,6 @@ h2{
 header {
     background-color: cadetblue;
 }
-
 
 footer {
     background-color: darksalmon;
@@ -53,17 +69,17 @@ footer {
     /*text-align: center;*/
 }
 
-.list ul li a{
+.list ul li a {
     text-decoration: none;
 }
 
-.list ul li a:hover{
+.list ul li a:hover {
     text-decoration: none;
     color: white;
     transition: 0.5s
 }
 
-.comments p{
+.comments p {
     padding: 0.5em;
     font-size: 1.2em;
     line-height: 1.5em;
@@ -79,20 +95,60 @@ footer {
 
 }
 
-.list{
+label {
+
+}
+
+input[type="text"] {
+    margin: 0.6em;
+    width: 30%;
+    display: block;
+    padding: 0.5em;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+input[type="password"] {
+    margin: 0.6em;
+    width: 30%;
+    display: block;
+    padding: 0.5em;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+footer h3 {
+    font-size: 1.2em;
     padding: 1em;
 }
 
-.image-class{
+textarea {
+    width: 30%;
+    margin: 0.6em;
+    display: block;
+    padding: 0.5em;
+    height: 10em;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.list {
+    padding: 1em;
+}
+
+.image-class {
     display: block;
 }
 
+.infinite-list-item1 {
+    background-color: goldenrod;
+    padding: 1em;
+}
 
-.infinite-list-item1{
-     background-color: goldenrod;
-     padding: 1em;
- }
-.infinite-list-item2{
+.infinite-list-item2 {
     background-color: lightblue;
     padding: 1em;
 }
@@ -111,7 +167,7 @@ footer {
     text-decoration: none;
 }
 
-.accordion2{
+.accordion2 {
     background-color: hotpink;
 }
 
