@@ -6,10 +6,9 @@ var createReactClass = require('create-react-class');
 class CommentRow extends React.Component {
     render() {
         return (
-            <tr>
-                <td>{this.props.comment.CommentID}</td>
-                <td>{this.props.comment.Info}</td>
-            </tr>
+            <p>
+                {this.props.comment.CommentText}
+            </p>
         );
     }
 }
@@ -26,28 +25,18 @@ class CommentTable extends React.Component {
 
     render() {
         var rows = [];
-        // var lastCategory = null;
         this.props.comments.forEach((comment) => {
-            // if (comment.CommentID == -1) {
-            //     return;
-            // }
-            if (comment.Info.indexOf(this.props.filterText) === -1) {
+
+            if (comment.CommentText.indexOf(this.props.filterText) === -1) {
                 return;
             }
 
             rows.push(<CommentRow comment={comment} key={comment.key}/>);
-            // lastCategory = comment.category;
         });
         return (
-            <table>
-                <thead>
-                <tr>
-                    <th>CommentID:</th>
-                    <th>Comment:</th>
-                </tr>
-                </thead>
-                <tbody>{rows}</tbody>
-            </table>
+            <div className="comments">
+                {rows}
+            </div>
         );
     }
 }
@@ -73,7 +62,7 @@ class SearchBar extends React.Component {
             <form>
                 <input
                     type="text"
-                    placeholder="Szukaj..."
+                    placeholder="Search comments..."
                     value={this.props.filterText}
                     onChange={this.handleFilterTextInputChange}
                 />
@@ -135,7 +124,8 @@ var Image = createReactClass({
         return {
             image: '',
             name: '',
-            comments: []
+            comments: [],
+            comment: ''
         };
     },
 
@@ -180,6 +170,28 @@ var Image = createReactClass({
         this.serverRequest.abort();
     },
 
+    handleChange: function (event) {
+        this.setState({comment: event.target.value});
+    },
+
+    handleSubmit: function (event) {
+
+        axios.post('/comments', {
+            comment: this.state.comment,
+            userID: 1,
+            imageID: this.props.match.params.id
+        })
+            .then(function (response) {
+                console.log('login response')
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        event.preventDefault();
+    },
+
     render() {
         console.log(this.state.image)
         var name = '1.jpg'// this.state.image
@@ -195,6 +207,14 @@ var Image = createReactClass({
                 {/*<h2>{this.state.name}</h2>*/}
                 <FilterableCommentTable comments={this.state.comments}/>
 
+                <h3>Make a comment on image:</h3>
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        Comment:
+                        <textarea value={this.state.comment} onChange={this.handleChange}/>
+                    </label>
+                    <input type="submit" value="Submit"/>
+                </form>
             </div>
         )
     }

@@ -6,7 +6,8 @@ body {
 
 #menu {
     color: red;
-    font-size: 3em;
+    font-size: 1.5em;
+
 }
 
 #app {
@@ -34,6 +35,36 @@ footer {
     /*text-align: center;*/
 }
 
+.list ul li a{
+    text-decoration: none;
+}
+
+.list ul li a:hover{
+    text-decoration: none;
+    color: white;
+    transition: 0.5s
+}
+
+.comments p{
+    padding: 0.5em;
+}
+
+.list ul li {
+    padding: 0.2em;
+}
+
+.list ul li:hover {
+    padding: 0.2em;
+    background-color: crimson;
+
+}
+
+.list{
+    padding: 1em;
+}
+
+
+
 .infinite-list-item1{
      background-color: goldenrod;
      padding: 1em;
@@ -54,6 +85,7 @@ footer {
     border: none;
     outline: none;
     transition: 0.4s;
+    text-decoration: none;
 }
 
 .accordion2{

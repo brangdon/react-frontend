@@ -7,7 +7,7 @@ class CommentRow extends React.Component {
         return (
             <tr>
                 <td>{this.props.comment.CommentID}</td>
-                <td>{this.props.comment.Info}</td>
+                <td>{this.props.comment.CommentText}</td>
             </tr>
         );
     }
@@ -21,7 +21,7 @@ class CommentTable extends React.Component {
             // if (comment.CommentID == -1) {
             //     return;
             // }
-            if (comment.Info.indexOf(this.props.filterText) === -1 ) {
+            if (comment.CommentText.indexOf(this.props.filterText) === -1) {
                 return;
             }
 
@@ -177,7 +177,7 @@ var Comments = createReactClass({
 
         var comments = [];
         for (var i = 0; i < this.state.comments.length; i++) {
-            comments.push(<p className='indent' key={i}>{this.state.comments[i].Info}</p>);
+            comments.push(<p className='indent' key={i}>{this.state.comments[i].CommentText}</p>);
         }
 
         return (
@@ -187,10 +187,7 @@ var Comments = createReactClass({
                 length: {this.state.comments.length}
                 {/*comments: {comments}*/}
                 <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Comment:
-                        <textarea value={this.state.value} onChange={this.handleChange}/>
-                    </label>
+                    <textarea value={this.state.value} onChange={this.handleChange}/>
                     <input type="submit" value="Submit"/>
                 </form>
             </div>

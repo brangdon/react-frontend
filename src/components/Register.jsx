@@ -1,5 +1,6 @@
 import React from 'react';
 var createReactClass = require('create-react-class');
+var axios = require('axios')
 
 var Register = createReactClass({
 
@@ -9,6 +10,10 @@ var Register = createReactClass({
             password: '',
             repeatPassword: ''
         };
+    },
+
+    componentWillUnmount: function () {
+        this.serverRequest.abort();
     },
 
     handleChangeLogin: function (event) {
@@ -26,20 +31,18 @@ var Register = createReactClass({
     handleSubmit: function (event) {
         alert('A name was submitted: ' + this.state.login + ' : ' + this.state.password + ' : ' + this.state.repeatPassword);
 
-        fetch('/register', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                login: this.state.login,
-                password: this.state.password,
-                repeatPassword: this.state.repeatPassword
-            })
+        axios.post('/register', {
+            login: this.state.login,
+            password: this.state.password,
+            repeatPassword: this.state.repeatPassword
         })
-
-
+            .then(function (response) {
+                console.log('register response')
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         event.preventDefault();
     },
 

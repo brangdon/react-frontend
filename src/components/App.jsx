@@ -2,13 +2,12 @@ import React from 'react';
 
 class Menu extends React.Component {
     render() {
-        return (<div>
+        return (<div className="list">
             <ul>
                 <li><a href="/home">Home</a></li>
                 <li><a href="/login">Login</a></li>
                 <li><a href="/register">Register</a></li>
                 <li><a href="/annoucements">Annoucements</a></li>
-                <li><a href="/contact">Contact</a></li>
                 <li><a href="/gallery"> Gallery</a></li>
             </ul>
 
