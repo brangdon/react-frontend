@@ -17,6 +17,7 @@ import Contact from './components/Contact.jsx';
 import Comments from './components/Comments.jsx';
 import Gallery from './components/Gallery.jsx';
 import InfiniteList from './components/InfiniteList.jsx';
+import Image from './components/Image.jsx';
 
 
 
@@ -31,6 +32,7 @@ ReactDOM.render((
                 <Route path="/contact" component={Contact}/>
                 <Route path="/comments" component={Comments}/>
                 <Route path="/gallery" component={Gallery}/>
+                <Route path="/image/:id" component={Image}/>
             </div>
 
         </BrowserRouter>

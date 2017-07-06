@@ -76,6 +76,7 @@ class SearchBar extends React.Component {
 class FilterableCommentTable extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             filterText: '',
             inStockOnly: false
@@ -98,6 +99,7 @@ class FilterableCommentTable extends React.Component {
     }
 
     render() {
+
         return (
             <div>
                 <SearchBar

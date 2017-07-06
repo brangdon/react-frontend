@@ -19,9 +19,11 @@ var ListItem = createReactClass({
     },
 
     render: function () {
+        var number = this.props.num.replace('.jpg', '');
 
         console.log('rendering itemList')
-        return <a href='http://www.onet.pl'><span><img  width={200} height={200} src={require('../images/'+ this.props.num)}/></span></a>
+        return <a href={'/Image/' + number}><span><img width={200} height={200}
+                                                                src={require('../images/' + this.props.num)}/></span></a>
     }
 });
 
@@ -79,11 +81,11 @@ var InfiniteList = createReactClass({
         });
         setTimeout(function () {
             var imagesLength = that.state.images.length
-            if(imagesLength> 60){
+            if (imagesLength > 60) {
                 that.setState({
                     isInfiniteLoading: false
                 });
-            }else{
+            } else {
                 var newImagesElements = that.fetchElement(imagesLength, imagesLength + 2);
                 that.setState({
                     isInfiniteLoading: false,
