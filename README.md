@@ -4,4 +4,5 @@ npm install redux-infinite-scroll
 npm install react-router-dom
 npm install react-infinite
 npm install axios
+npm i react-filterable-table
 

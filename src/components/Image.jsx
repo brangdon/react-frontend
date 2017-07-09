@@ -2,7 +2,6 @@ import React from 'react';
 var axios = require('axios');
 var createReactClass = require('create-react-class');
 
-
 class CommentRow extends React.Component {
     render() {
         return (
@@ -202,8 +201,6 @@ var Image = createReactClass({
         return (
             <div>
                 <h2>Image comments</h2>
-                {/*<h2>{this.props.match.params.id}</h2>*/}
-                {/*<h2>{this.state.name}</h2>*/}
                 <FilterableCommentTable comments={this.state.comments}/>
 
                 <h3>Make a comment on image:</h3>
