@@ -195,14 +195,17 @@ var Image = createReactClass({
     },
 
     render() {
+        console.log('comments:')
+        console.log(this.state.comments)
+
         console.log(this.state.image)
-        var name = '1.jpg'// this.state.image
-        var name2 = this.props.match.params.id + '.jpg'
+        // var name = '1.jpg'// this.state.image
+        // var name2 = this.props.match.params.id + '.jpg'
+
 
         let fields = [
-            { name: 'UserID', displayName: "User ID", inputFilterable: true, sortable: true },
-            { name: 'CommentText', displayName: "Comment", inputFilterable: true, exactFilterable: true, sortable: true },
-            { name: 'CommentID', displayName: "Comment ID", inputFilterable: true, exactFilterable: true, sortable: true }
+            { name: 'Login', displayName: "User", inputFilterable: true, sortable: true },
+            { name: 'CommentText', displayName: "Comment", inputFilterable: true, exactFilterable: true, sortable: true }
         ];
 
 
