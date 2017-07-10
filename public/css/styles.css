@@ -17,6 +17,12 @@ h2 {
 
 }
 
+.myTextArea{
+    font-size:1em;
+    height: 8em;
+    width:20em;
+}
+
 .annoucements-container h2 {
     font-size: 2em;
 }

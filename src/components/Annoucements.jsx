@@ -3,19 +3,46 @@ var createReactClass = require('create-react-class');
 var axios = require('axios')
 
 
-class CommentRow extends React.Component {
-    render() {
+var AnnoucementRow = createReactClass({
+
+    componentWillUnmount: function () {
+        this.serverRequest.abort();
+    },
+
+    fun(idAnnoucement){
+        // e.preventDefault();
+        // console.log(arg)
+        this.serverRequest = axios
+            .delete("/annoucements/" + this.props.comment.AnnoucementID)
+            .then(function (result) {
+
+                // if (result) {
+                //     _this.setState({
+                //         comments: result.data
+                //     });
+                // }
+
+            })
+    },
+
+
+    // console.log(idAnnoucement)
+
+
+    render()
+    {
         return (
             <div className="annoucement">
                 <h3>{this.props.comment.Title}</h3>
                 <p>{this.props.comment.Info}</p>
+                <button onClick={() => this.fun(this.props.comment)}>{this.props.comment.Title}</button>
             </div>
 
         );
     }
-}
+})
 
-class CommentTable extends React.Component {
+class AnnoucementTable extends React.Component {
     render() {
         var rows = [];
         this.props.comments.forEach((comment) => {
@@ -23,7 +50,7 @@ class CommentTable extends React.Component {
                 return;
             }
 
-            rows.push(<CommentRow comment={comment} key={comment.key}/>);
+            rows.push(<AnnoucementRow comment={comment} key={comment.key}/>);
         });
         return (
             <div className="annoucements">
@@ -33,38 +60,8 @@ class CommentTable extends React.Component {
     }
 }
 
-class SearchBar extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleFilterTextInputChange = this.handleFilterTextInputChange.bind(this);
-        this.handleInStockInputChange = this.handleInStockInputChange.bind(this);
-    }
 
-    handleFilterTextInputChange(e) {
-        this.props.onFilterTextInput(e.target.value);
-        console.log(e.target.value)
-    }
-
-    handleInStockInputChange(e) {
-        this.props.onInStockInput(e.target.checked);
-    }
-
-    render() {
-        return (
-            <form>
-                <input
-                    type="text"
-                    placeholder="Szukaj..."
-                    value={this.props.filterText}
-                    onChange={this.handleFilterTextInputChange}
-                />
-            </form>
-        );
-    }
-}
-
-
-class FilterableCommentTable extends React.Component {
+class FilterableAnnoucementTable extends React.Component {
     constructor(props) {
         super(props);
 
@@ -94,7 +91,7 @@ class FilterableCommentTable extends React.Component {
         return (
             <div>
 
-                <CommentTable
+                <AnnoucementTable
                     comments={this.props.comments}
                     filterText={this.state.filterText}
                     inStockOnly={this.state.inStockOnly}
@@ -182,7 +179,7 @@ var Annoucements = createReactClass({
 
                     <input type="submit" value="Submit"/>
                 </form>
-                <FilterableCommentTable comments={this.state.annoucements}/>
+                <FilterableAnnoucementTable comments={this.state.annoucements}/>
             </div>
         )
     }

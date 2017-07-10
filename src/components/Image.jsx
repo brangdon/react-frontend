@@ -226,8 +226,10 @@ var Image = createReactClass({
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         Comment:
-                        <textarea value={this.state.comment} onChange={this.handleChange}/>
+                        <textarea className="myTextArea" value={this.state.comment} onChange={this.handleChange}/>
                     </label>
+
+                    <br/>
                     <input type="submit" value="Submit"/>
                 </form>
             </div>
