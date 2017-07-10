@@ -1,6 +1,9 @@
 import React from 'react';
 var axios = require('axios');
 var createReactClass = require('create-react-class');
+var FilterableTable = require('react-filterable-table');
+
+
 
 class CommentRow extends React.Component {
     render() {
@@ -96,6 +99,7 @@ class FilterableCommentTable extends React.Component {
     }
 
     render() {
+
 
         return (
             <div>
@@ -195,13 +199,25 @@ var Image = createReactClass({
         var name = '1.jpg'// this.state.image
         var name2 = this.props.match.params.id + '.jpg'
 
-        // console.log('name state: ' + this.state.name)
-        console.log('comments:')
-        console.log(this.state.comments)
+        let fields = [
+            { name: 'UserID', displayName: "User ID", inputFilterable: true, sortable: true },
+            { name: 'CommentText', displayName: "Comment", inputFilterable: true, exactFilterable: true, sortable: true },
+            { name: 'CommentID', displayName: "Comment ID", inputFilterable: true, exactFilterable: true, sortable: true }
+        ];
+
+
         return (
             <div>
                 <h2>Image comments</h2>
-                <FilterableCommentTable comments={this.state.comments}/>
+                {/*<FilterableCommentTable comments={this.state.comments}/>*/}
+                <FilterableTable
+                    namespace="People"
+                    initialSort="UserID"
+                    data={this.state.comments}
+                    fields={fields}
+                    noRecordsMessage="There are no people to display"
+                    noFilteredRecordsMessage="No people match your filters!"
+                />
 
                 <h3>Make a comment on image:</h3>
                 <form onSubmit={this.handleSubmit}>

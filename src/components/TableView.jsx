@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactTable from 'react-table'
 
 var createReactClass = require('create-react-class');
 var axios = require('axios')
